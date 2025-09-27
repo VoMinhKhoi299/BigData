@@ -3,13 +3,14 @@
 ## 2️⃣ Quy trình làm việc
 
 ### a. Cấu trúc kho Git
+```bash
 bigdata-project/
-├─ data_clean/ # Mã thu thập & làm sạch dữ liệu
-├─ mapreduce_jobs/ # Mã MapReduce
-├─ hbase_mysql/ # Script MySQL/HBase + Sqoop
-├─ gui_pyqt5/ # Ứng dụng GUI PyQt5
-└─ docs/ # Tài liệu
-
+    ├─ data_clean/ # Mã thu thập & làm sạch dữ liệu
+    ├─ mapreduce_jobs/ # Mã MapReduce
+    ├─ hbase_mysql/ # Script MySQL/HBase + Sqoop
+    ├─ gui_pyqt5/ # Ứng dụng GUI PyQt5
+    └─ docs/ # Tài liệu
+```
 - **Branch cho từng thành viên**  
   - `data` – xử lý dữ liệu thô  
   - `mapreduce` – viết job MapReduce  
