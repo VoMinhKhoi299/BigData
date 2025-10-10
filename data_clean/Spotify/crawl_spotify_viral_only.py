@@ -54,7 +54,7 @@ def fetch_json(s: requests.Session, url: str, raw_path: Path, resume: bool) -> D
         return {"__status": 404}
     if r.status_code == 429:
         wait = int(r.headers.get("Retry-After", "5"))
-        log(f"⚠️ 429 {url} — đợi {wait}s")
+        log(f" 429 {url} — đợi {wait}s")
         time.sleep(wait)
         r = s.get(url, timeout=30)  # thử lại 1 lần
     r.raise_for_status()
@@ -134,7 +134,7 @@ def crawl(regions: List[str], start: str, end: str, rps: float, resume: bool):
     days = list(each_day(dt.datetime.strptime(start, "%Y-%m-%d").date(),
                          dt.datetime.strptime(end,   "%Y-%m-%d").date()))
     tasks = [(d, r) for d in days for r in regions]
-    pbar = tqdm(total=len(tasks), desc="🎧 Viral daily")
+    pbar = tqdm(total=len(tasks), desc=" Viral daily")
 
     for day, region in tasks:
         url = f"{AUTH_BASE}/viral-{region.lower()}-daily/{day}"
@@ -159,9 +159,9 @@ def main():
     ap.add_argument("--resume", action="store_true")                   # bỏ qua URL đã có raw JSON
     args = ap.parse_args()
 
-    print(f"🌍 REGIONS: {args.regions}")
-    print(f"📆 DATE RANGE: {args.start} -> {args.end}")
-    print(f"🎚️ RPS={args.rps} | RESUME={args.resume}")
+    print(f" REGIONS: {args.regions}")
+    print(f" DATE RANGE: {args.start} -> {args.end}")
+    print(f" RPS={args.rps} | RESUME={args.resume}")
     crawl(args.regions, args.start, args.end, args.rps, args.resume)
 
 if __name__ == "__main__":
