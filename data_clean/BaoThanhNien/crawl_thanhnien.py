@@ -1,12 +1,9 @@
-#!/usr/bin/env python3
-# Python 3.12 – Crawl ThanhNien.vn bằng RSS (đầy đủ & tương đương VNExpress)
 import os, csv, time, random, hashlib
 from datetime import datetime, timedelta, timezone
 import requests
 from bs4 import BeautifulSoup
 import xml.etree.ElementTree as ET
 
-# ===== CONFIG =====
 MONTHS_BACK = 3
 MAX_PER_FEED = 300
 BASE_DIR = os.path.abspath("./data_raw")
@@ -31,7 +28,6 @@ HEADERS = {"User-Agent": "Mozilla/5.0"}
 S = requests.Session(); S.headers.update(HEADERS)
 TIMEOUT = 15
 
-# ===== HỖ TRỢ =====
 def get(url):
     for _ in range(3):
         try:
@@ -47,11 +43,9 @@ def parse_pub_date(pub):
     """Fix năm 2 chữ số -> 4 chữ số"""
     if not pub: return None
     try:
-        # Thử dạng chuẩn (có 4 chữ số)
         return datetime.strptime(pub, "%a, %d %b %Y %H:%M:%S %z")
     except:
         try:
-            # Fix dạng năm 2 chữ số (vd: 'Thu, 16 Oct 25 16:39:00 +0700')
             pub_fixed = pub.replace(" 25 ", " 2025 ")
             return datetime.strptime(pub_fixed, "%a, %d %b %Y %H:%M:%S %z")
         except:
@@ -95,7 +89,6 @@ def parse_article(url, fallback_title, fallback_cat, desc):
         "Url": url
     }
 
-# ===== CHÍNH =====
 def main():
     print("Bắt đầu crawl ThanhNien.vn (RSS)...")
     all_items = []
@@ -125,7 +118,7 @@ def main():
         w = csv.DictWriter(f, fieldnames=["id","Title","Date","Category","Description","Url"])
         w.writeheader(); w.writerows(rows)
 
-    print(f"✅ Hoàn tất: {len(rows)} bài viết → {OUTFILE}")
+    print(f" Hoàn tất: {len(rows)} bài viết → {OUTFILE}")
 
 if __name__ == "__main__":
     main()
