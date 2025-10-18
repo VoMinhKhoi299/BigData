@@ -1,0 +1,6 @@
+[mysql]
+host = 192.168.195.99
+port = 3306
+user = bigdata_user
+password = Bigdata@123
+database = bigdata
